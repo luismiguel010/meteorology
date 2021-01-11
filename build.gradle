@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'co.com.ceiba'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('azureVersion', "3.0.0")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+	compile group: 'com.microsoft.azure', name: 'spring-starter-azure-storage', version: '1.2.8'
+
+}
+
+
+
+dependencyManagement {
+	imports {
+		mavenBom "com.azure.spring:azure-spring-boot-bom:${azureVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
